@@ -17,3 +17,4 @@ class DesignResource {
     }
 }
 exports.default = DesignResource;
+//# sourceMappingURL=DesignResource.js.map

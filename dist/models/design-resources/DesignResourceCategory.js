@@ -17,3 +17,4 @@ class DesignResourceCategory {
     }
 }
 exports.default = DesignResourceCategory;
+//# sourceMappingURL=DesignResourceCategory.js.map

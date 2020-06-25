@@ -4,7 +4,8 @@
   "description": "A GUI for the bradtraversy design-resources-for-developers git repository",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev --respawn src/app.ts"
+    "start": "ts-node-dev --respawn src/app.ts",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",

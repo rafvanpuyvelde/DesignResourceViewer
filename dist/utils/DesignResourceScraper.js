@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const parse5_1 = __importDefault(require("parse5"));
 const showdown_1 = __importDefault(require("showdown"));
 const node_fetch_1 = __importDefault(require("node-fetch"));
-const DesignResource_1 = __importDefault(require("models/design-resources/DesignResource"));
-const DesignResourceCategory_1 = __importDefault(require("models/design-resources/DesignResourceCategory"));
+const DesignResource_1 = __importDefault(require("../models/design-resources/DesignResource"));
+const DesignResourceCategory_1 = __importDefault(require("../models/design-resources/DesignResourceCategory"));
 const designResourceUrl = `https://raw.githack.com/bradtraversy/design-resources-for-developers/master/readme.md`;
 class DesignResourceScraper {
     constructor() {
@@ -15,12 +15,12 @@ class DesignResourceScraper {
         this.getMarkdownFileFromUrl = async () => {
             try {
                 const response = await node_fetch_1.default(designResourceUrl);
-                return response.ok ? response.json() : undefined;
+                return response.ok ? response.text() : undefined;
             }
             catch (error) {
                 console.log(error);
             }
-            return null;
+            return undefined;
         };
         this.convertMarkdownToHtml = (markdown) => {
             const converter = new showdown_1.default.Converter();
@@ -74,7 +74,6 @@ class DesignResourceScraper {
             if (markdown != null) {
                 const bodyElements = this.getHtmlBodyElementsFromMarkdown(markdown);
                 categories = this.getDesignResourceCategories(bodyElements);
-                console.log(categories);
             }
             else {
                 throw Error("Couldn't fetch design-resources source ...");
@@ -85,3 +84,4 @@ class DesignResourceScraper {
     }
 }
 exports.default = DesignResourceScraper;
+//# sourceMappingURL=DesignResourceScraper.js.map

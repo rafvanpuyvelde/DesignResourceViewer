@@ -1,9 +1,9 @@
 import htmlParser from "parse5";
 import showdown from "showdown";
 import fetch, { Response } from "node-fetch";
-import IDesignResourceScraper from "./IDesignResourceScaper";
-import DesignResource from "models/design-resources/DesignResource";
-import DesignResourceCategory from "models/design-resources/DesignResourceCategory";
+import IDesignResourceScraper from "./IDesignResourceScraper";
+import DesignResource from "../models/design-resources/DesignResource";
+import DesignResourceCategory from "../models/design-resources/DesignResourceCategory";
 
 const designResourceUrl = `https://raw.githack.com/bradtraversy/design-resources-for-developers/master/readme.md`;
 
@@ -12,11 +12,10 @@ export default class DesignResourceScraper implements IDesignResourceScraper {
     let categories = new Array<DesignResourceCategory>();
 
     await this.getMarkdownFileFromUrl()
-      .then((markdown: string | null) => {
+      .then((markdown: string | undefined) => {
         if (markdown != null) {
           const bodyElements = this.getHtmlBodyElementsFromMarkdown(markdown);
           categories = this.getDesignResourceCategories(bodyElements);
-          console.log(categories);
         } else {
           throw Error("Couldn't fetch design-resources source ...");
         }
@@ -27,15 +26,15 @@ export default class DesignResourceScraper implements IDesignResourceScraper {
   }
 
   // Gets the markdown file from the design resources url
-  private getMarkdownFileFromUrl = async (): Promise<string | null> => {
+  private getMarkdownFileFromUrl = async (): Promise<string | undefined> => {
     try {
       const response: Response = await fetch(designResourceUrl);
-      return response.ok ? response.json() : undefined;
+      return response.ok ? response.text() : undefined;
     } catch (error) {
       console.log(error);
     }
 
-    return null;
+    return undefined;
   };
 
   private convertMarkdownToHtml = (markdown: string): string => {
@@ -113,8 +112,10 @@ export default class DesignResourceScraper implements IDesignResourceScraper {
   };
 
   private cleanResourceDescription = (description: string): string => {
-    const regexp = new RegExp("w+/g");
+    const regexp = /\w+/g;
+
     const matches = [...description.matchAll(regexp)];
+
     return matches.join(" ");
   };
 }
