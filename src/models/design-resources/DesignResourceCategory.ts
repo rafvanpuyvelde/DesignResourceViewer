@@ -1,4 +1,4 @@
-import DesignResource from "./design-resource";
+import DesignResource from "./DesignResource";
 
 export default class DesignResourceCategory {
   private _name: string;
