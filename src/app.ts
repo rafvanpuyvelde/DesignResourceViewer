@@ -6,14 +6,12 @@ import router from "./routes/router";
 const port = 5000;
 const app = express();
 
-// Setup
+// Setup - General
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Routes
 app.use(router);
-
-console.log(app.routes);
 
 // Startup
 app.listen(port, () => {
