@@ -1,0 +1,49 @@
+.wrapper-resource-card {
+  width: 282px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+  color: $primary-color;
+  box-shadow: $primary-shadow;
+  margin-bottom: 32px;
+  border-radius: 10px;
+  min-height: 80px;
+
+  @media only screen and (min-width: $extra-small-breakpoint) {
+    min-width: 100%;
+  }
+
+  @media only screen and (min-width: $small-breakpoint) {
+    min-width: calc(50% - 35px);
+  }
+
+  @media only screen and (min-width: $medium-breakpoint) {
+    min-width: calc(calc(100% / 3) - 70px);
+  }
+
+  @media only screen and (min-width: $large-breakpoint) {
+    min-width: calc(calc(100% / 4) - 105px);
+  }
+
+  .wrapper-resource-details {
+    width: 70%;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+
+    p {
+      color: $primary-text-color;
+    }
+
+    span {
+      font-weight: 300;
+      font-size: 14px;
+      width: 100%;
+      color: #8e8e8e;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as React from "react";
-import "./DesignResources.scss";
-import DesignResourceCategory from "../types/DesignResourceCategory";
+import DesignResourceCategory from "../../types/DesignResourceCategory";
+import DesignResourceList from "../DesignResourceList/DesignResourceList";
 
 interface IProps {}
 
@@ -32,9 +32,9 @@ export default class DesignResources extends React.PureComponent<
 
   render() {
     return (
-      <ul>
-        {this.state.resources.map((resource) => (
-          <li key={resource.name}>{resource.name}</li>
+      <ul className="wrapper-design-resources">
+        {this.state.resources.map((category) => (
+          <DesignResourceList key={category.name} listCategory={category} />
         ))}
       </ul>
     );

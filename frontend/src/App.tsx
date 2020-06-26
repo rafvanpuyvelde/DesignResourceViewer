@@ -1,6 +1,5 @@
 import React from "react";
-import "./App.scss";
-import DesignResources from "./components/DesignResources";
+import DesignResources from "./components/DesignResources/DesignResources";
 
 function App() {
   return (

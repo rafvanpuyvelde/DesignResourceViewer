@@ -1,0 +1,23 @@
+.wrapper-design-resource-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+
+  h2 {
+    margin: 50px 0 40px 0;
+    font-weight: bold;
+    font-size: 18px;
+    color: $primary-text-color;
+  }
+
+  ul {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    column-gap: 0;
+
+    @media only screen and (min-width: $extra-small-breakpoint) {
+      column-gap: 70px;
+    }
+  }
+}

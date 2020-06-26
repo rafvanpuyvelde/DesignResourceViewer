@@ -1,0 +1,53 @@
+@import "../assets/styles/variables";
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
+
+@import "./App.scss";
+@import "./components/DesignResources/DesignResources.scss";
+@import "./components/DesignResourceList/DesignResourceList.scss";
+@import "./components/DesignResourceCard/DesignResourceCard.scss";
+@import "./components/FavIcon/FavIcon.scss";
+
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    ul {
+      padding: 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    ol,
+    ul {
+      margin: 0;
+      padding: 0;
+      font-weight: normal;
+    }
+
+    ol,
+    ul {
+      list-style: none;
+    }
+  }
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
