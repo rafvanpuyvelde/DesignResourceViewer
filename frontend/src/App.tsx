@@ -1,28 +1,34 @@
 import React from "react";
 import "./App.scss";
-import logo from "./logo.svg";
-import DesignResources from "./DesignResources";
+import DesignResources from "./components/DesignResources";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="wrapper-app">
+      <header>
+        <h1>
+          <span role="img" aria-label="cog">
+            ⚙️
+          </span>{" "}
+          Design Resources
+        </h1>
       </header>
-      <div className="wrapper-design-resources">
+
+      <main>
         <DesignResources />
-      </div>
+      </main>
+
+      <footer>
+        Created with{"\u00A0"}
+        <span role="img" aria-label="love">
+          ❤️
+        </span>
+        {"\u00A0"}
+        by{"\u00A0"}
+        <a href="https://www.linkedin.com/in/raf-vanpuyvelde/">
+          Raf Vanpuyvelde
+        </a>
+      </footer>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as React from "react";
 import "./DesignResources.scss";
-import DesignResourceCategory from "./types/DesignResourceCategory";
+import DesignResourceCategory from "../types/DesignResourceCategory";
 
 interface IProps {}
 
