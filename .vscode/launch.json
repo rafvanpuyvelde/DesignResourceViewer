@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch node app",
+      "type": "node",
+      "request": "launch",
+      "args": ["src/App.ts"],
+      "runtimeArgs": ["-r", "ts-node/register"],
+      "outFiles": [
+        "${workspaceRoot}/api/dist/**/*.js",
+        "${workspaceRoot}/api/node_modules/**/*.js"
+      ],
+      "cwd": "${workspaceRoot}/api/",
+      "protocol": "inspector",
+      "internalConsoleOptions": "openOnSessionStart"
+    }
+  ]
+}

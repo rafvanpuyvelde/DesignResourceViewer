@@ -42,6 +42,7 @@
     "express": "^4.17.1",
     "form-data": "^3.0.0",
     "jsdom": "^16.2.2",
+    "link-preview-js": "^2.0.4",
     "node-fetch": "^2.6.0",
     "parse5": "^6.0.0",
     "redis": "^3.0.2",

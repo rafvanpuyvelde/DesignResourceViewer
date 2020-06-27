@@ -6,22 +6,19 @@ interface IProps {
   resource: DesignResource;
 }
 
-interface IState {}
+interface IState {
+  resourceFavIconPath: string;
+}
 
 export default class DesignResourceCard extends React.PureComponent<
   IProps,
   IState
 > {
-  constructor(props: IProps) {
-    super(props);
-    this.state = { resource: null };
-  }
-
   render() {
     return (
       <div className="wrapper-resource-card">
         <FavIcon
-          src="https://picsum.photos/32"
+          src={this.props.resource.favIconPath}
           alt={this.props.resource.name + "'s favicon"}
         />
 

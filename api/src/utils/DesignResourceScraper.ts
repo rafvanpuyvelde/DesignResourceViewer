@@ -4,6 +4,7 @@ import fetch, { Response } from "node-fetch";
 import IDesignResourceScraper from "./IDesignResourceScraper";
 import DesignResource from "../models/design-resources/DesignResource";
 import DesignResourceCategory from "../models/design-resources/DesignResourceCategory";
+import { getLinkPreview } from "link-preview-js";
 
 const designResourceUrl = `https://raw.githack.com/bradtraversy/design-resources-for-developers/master/readme.md`;
 
@@ -12,10 +13,10 @@ export default class DesignResourceScraper implements IDesignResourceScraper {
     let categories = new Array<DesignResourceCategory>();
 
     await this.getMarkdownFileFromUrl()
-      .then((markdown: string | undefined) => {
+      .then(async (markdown: string | undefined) => {
         if (markdown != null) {
           const bodyElements = this.getHtmlBodyElementsFromMarkdown(markdown);
-          categories = this.getDesignResourceCategories(bodyElements);
+          categories = await this.getDesignResourceCategories(bodyElements);
         } else {
           throw Error("Couldn't fetch design-resources source ...");
         }
@@ -50,9 +51,9 @@ export default class DesignResourceScraper implements IDesignResourceScraper {
     return document.childNodes[0].childNodes[1].childNodes;
   };
 
-  private getDesignResourceCategories = (
+  private getDesignResourceCategories = async (
     bodyElements: string | any[] | NodeListOf<ChildNode>
-  ): Array<DesignResourceCategory> => {
+  ): Promise<Array<DesignResourceCategory>> => {
     const categories = new Array<DesignResourceCategory>();
 
     for (let nodeIndex = 0; nodeIndex < bodyElements.length; nodeIndex++) {
@@ -63,7 +64,7 @@ export default class DesignResourceScraper implements IDesignResourceScraper {
         element.attrs[0].value !== "tableofcontents"
       ) {
         categories.push(
-          this.getDesignResourceCategory(element, bodyElements, nodeIndex)
+          await this.getDesignResourceCategory(element, bodyElements, nodeIndex)
         );
       }
     }
@@ -71,23 +72,23 @@ export default class DesignResourceScraper implements IDesignResourceScraper {
     return categories;
   };
 
-  private getDesignResourceCategory = (
+  private getDesignResourceCategory = async (
     element: { childNodes: { value: any }[] },
     bodyElements: string | any[] | NodeListOf<ChildNode>,
     nodeIndex: number
-  ): DesignResourceCategory => {
+  ): Promise<DesignResourceCategory> => {
     const categoryName = element.childNodes[0].value;
     const description =
       bodyElements[nodeIndex + 2].childNodes[1].childNodes[0].value;
-    const resources = this.getDesignResourcesFromParagraph(
+    const resources = await this.getDesignResourcesFromParagraph(
       bodyElements[nodeIndex + 4]
     );
     return new DesignResourceCategory(categoryName, description, resources);
   };
 
-  private getDesignResourcesFromParagraph = (paragraphNode: {
+  private getDesignResourcesFromParagraph = async (paragraphNode: {
     childNodes: string | any[];
-  }): Array<DesignResource> => {
+  }): Promise<Array<DesignResource>> => {
     const resources = new Array<DesignResource>();
 
     for (
@@ -104,7 +105,13 @@ export default class DesignResourceScraper implements IDesignResourceScraper {
         );
         const url = node.attrs[0].value;
 
-        resources.push(new DesignResource(name, description, url));
+        await this.getResourceFavIconPath(url).then((favIconPath) => {
+          console.log(favIconPath);
+
+          resources.push(
+            new DesignResource(name, description, url, favIconPath)
+          );
+        });
       }
     }
 
@@ -118,4 +125,17 @@ export default class DesignResourceScraper implements IDesignResourceScraper {
 
     return matches.join(" ");
   };
+
+  private async getResourceFavIconPath(urlSrc: string): Promise<string> {
+    let path;
+
+    try {
+      path = await getLinkPreview(urlSrc);
+      path = path.favicons[0];
+    } catch (error) {
+      console.log(error);
+    }
+
+    return path;
+  }
 }

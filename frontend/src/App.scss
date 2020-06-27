@@ -23,6 +23,16 @@
       font-size: 12px;
       line-height: 14px;
       color: $primary-text-color;
+
+      span {
+        @media (prefers-reduced-motion: no-preference) {
+          animation-name: rotate-animation;
+          animation-duration: 2s;
+          animation-iteration-count: infinite;
+          transform-origin: center;
+          display: inline-block;
+        }
+      }
     }
   }
 
@@ -42,5 +52,17 @@
     line-height: 14px;
     color: $primary-text-color;
     border-top: 1px solid $border-color;
+  }
+
+  @keyframes rotate-animation {
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(180deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }
